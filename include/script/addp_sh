@@ -1,0 +1,10 @@
+#ifndef ADDP_SH
+#define ADDP_SH
+
+#include<string>
+
+std::string addp_sh(std::string pname){
+	return "unzip "+pname+" ~/.problem/\n";
+}
+
+#endif
