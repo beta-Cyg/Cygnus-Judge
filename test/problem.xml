@@ -1,16 +1,3 @@
-structure of the problem.zip
-
-$problem.zip
-|--problem.xml
-|--description.md
-|--1.in
-|--1.out
-|--...
-|--n.in
-|--n.out
-
-syntax example of problem.ini
-```xml
 <?xml version="1.0" encoding="ANSI"?>
 <problem>
 	<name>test</name>
@@ -22,4 +9,3 @@ syntax example of problem.ini
 	<memory_limit>256M</memory_limit>
 	<tag>test</tag>
 </problem>
-```
