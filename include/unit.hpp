@@ -1,33 +1,39 @@
 #ifndef UNIT_HPP
 #define UNIT_HPP
 
+#include<cmath>
+
 namespace cyg{
 	typedef long double real;
 
 	class unit{
 	public:
 		real number_to_std;
+        long long exp;
 
-		constexpr unit(real&& nts):number_to_std(nts){}
+		constexpr explicit unit(real&& nts,long long&& _exp):number_to_std(nts),exp(_exp){}
 
-		const real to_std(const real& value)const{
-			return value*number_to_std;
+		real to_std(const real& value)const{
+			return value*number_to_std*std::pow(10,exp);
 		}
 
-		const real to_std(real&& value){
-			return value*number_to_std;
+		real to_std(real&& value)const{
+			return value*number_to_std*std::pow(10,exp);
 		}
 	};
 
 	/*distance*/
-	constexpr unit m(1e3),km(1e6),dm(1e2),cm(1e1),mm(1e0),um(1e-3),nm(1e-6);
+	constexpr unit m(1,3),km(1,6),dm(1,2),cm(1,1),mm(1,0),um(1,-3),nm(1,-6);
 
 	/*time*/
-	constexpr unit sec(1e3),min(60*1e3),h(3600*1e3),ms(1e0),us(1e-3),ns(1e-6);
+	constexpr unit sec(1,3),min(6,4),h(3.6,6),ms(1,0),us(1,-3),ns(1,-6);
+
+    /*byte*/
+    constexpr unit Mb(1/8.0,0),MB(1,0),Kb(1/(1024*8.0),0),KB(1/1024.0,0);
 
 	template<const unit& u1,const unit& u2>
-	const real convert(const real& value){
-		return u1.to_std(value)/u2.number_to_std;
+	real convert(const real& value){
+		return u1.to_std(value)/(u2.number_to_std*std::pow(10,u2.exp));
 	}
 }
 

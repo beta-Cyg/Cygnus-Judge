@@ -2,7 +2,7 @@ CC=g++
 C=gcc
 debug=-Wall
 
-all: init main xmlpt
+all: init main xmlpt unitt
 
 main: include/main.cpp xmlp
 	$(CC) include/main.cpp -o bin/judge -O2 $(debug)
@@ -14,6 +14,9 @@ xmlp: include/xml_parser.hpp
 
 xmlpt: include/xmlp_test.cpp xmlp
 	$(CC) include/xmlp_test.cpp -o bin/xmlpt -O2 $(debug)
+
+unitt: include/unit.hpp include/unit_test.cpp
+	$(CC) include/unit_test.cpp -o bin/unitt -O2 $(debug)
 
 init:
 	mkdir -p bin lib
