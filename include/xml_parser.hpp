@@ -39,7 +39,7 @@ namespace cyg{
                 boost::property_tree::read_xml(xml_file_name,xml_ptree);
             }
             catch(std::exception& _exception){
-                std::cerr<<_exception.what()<<std::endl;
+                throw problem_exception("syntax of the xml document is wrong.");
             }
             pname=xml_ptree.get<std::string>("problem.name");
             std::string ml=xml_ptree.get<std::string>("problem.memory_limit");
