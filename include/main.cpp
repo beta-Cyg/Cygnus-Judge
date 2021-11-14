@@ -1,6 +1,7 @@
 #include<iostream>
 #include<string>
 #include<cstdlib>
+#include"script/addp_sh"
 using namespace std;
 
 int main(int argc,char** Args){
@@ -19,16 +20,22 @@ int main(int argc,char** Args){
 				<<"GNU GPLv3.0\n"
 				<<"by beta-Cyg";
 		}
-		else if(args[1]=="setting"){
-			system("visudo ~/.judgerc");
-		}
-		else{
-			cout<<"undefined option/option's syntax error\n";
-		}
+		else if(args[1]=="setting")
+            system("visudo ~/.judgerc");
+        else if(args[1]=="init")
+                system("mkdir -p ~/.judge");
+        else{
+            cout<<"undefined option/option's syntax error\n";
+            return -1;
+        }
 		break;
 	case 3:
 		if(args[1]=="addp"){
-			system(addp_sh.c_str());
+			int result=system(addp_sh(args[2]).c_str());
+            if(result!=0) {
+                cerr<<"unzip error!\n";
+                return -1;
+            }
 		}
 	default:
 		break;

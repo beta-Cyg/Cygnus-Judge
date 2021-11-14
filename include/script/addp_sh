@@ -4,7 +4,7 @@
 #include<string>
 
 std::string addp_sh(std::string pname){
-	return "unzip "+pname+" ~/.problem/\n";
+	return "unzip -o "+pname+" -d ~/.problem/\n";
 }
 
 #endif
