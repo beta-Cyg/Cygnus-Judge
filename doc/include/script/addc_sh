@@ -1,0 +1,12 @@
+#ifndef ADDC_SH
+#define ADDC_SH
+
+#include<string>
+
+namespace cyg{
+    std::string addc_sh(const std::string& cname){
+        return "echo \"\" > ~/.judge/competition/"+cname;
+    }//solve addc_sh
+}
+
+#endif

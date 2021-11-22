@@ -1,16 +1,16 @@
-CXX=g++
-C=gcc
+CXX=g++-11
+C=gcc-11
 debug=-Wall
 
-all: init main xmlpt unitt
+all: clean init main
 
-main: include/main.cpp xmlp
+main: include/main.cpp judge_server
 	$(CXX) include/main.cpp -o bin/judge -O2 $(debug)
 
+judge_server: include/judge_server.cpp xmlp
+	$(CXX) include/judge_server.cpp -o bin/judge_server -O2 $(debug)
+
 xmlp: include/xml_parser.hpp
-	$(CXX) -c include/xml_parser.hpp -o lib/xmlp.o -O2 $(debug)
-	ar rcs lib/xmlp.a lib/xmlp.o
-	rm lib/xmlp.o
 
 xmlpt: include/xmlp_test.cpp xmlp
 	$(CXX) include/xmlp_test.cpp -o bin/xmlpt -O2 $(debug)
