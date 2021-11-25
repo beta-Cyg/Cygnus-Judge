@@ -60,7 +60,9 @@ bool get_running_type(){
 void get_new_judge(){
     FILE* judge_que_file=fopen(USER"/.judge/judge_que_file","r");
     if(judge_que_file==nullptr){
+#ifdef CYG_DEBUG
         cout<<"open judge_que_file failed"<<endl;
+#endif
         return;
     }
     char code_name[128],problem_name[128];
