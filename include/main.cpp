@@ -3,6 +3,7 @@
 #include<cstdlib>
 #include"script/addp_sh"
 #include"script/addc_sh"
+#include"project_info.h"
 using namespace std;
 
 int main(int argc,char** Args){
@@ -22,21 +23,21 @@ int main(int argc,char** Args){
 				<<"by beta-Cyg";
 		}
 		else if(args[1]=="setting"){
-            int result=system("visudo ~/.judgerc");
+            int result=system("visudo " USER"/.judgerc");
             if(result!=0){
                 return result;
             }
         }
         else if(args[1]=="init"){
-            int result=system("mkdir -p ~/.judge");
+            int result=system("mkdir -p " USER"/.judge");
             if(result!=0){
                 return result;
             }
-            result=system("mkdir -p ~/.judge/problem");
+            result=system("mkdir -p " USER"/.judge/problem");
             if(result!=0){
                 return result;
             }
-            result=system("mkdir -p ~/.judge/competition");
+            result=system("mkdir -p " USER"/.judge/competition");
             if(result!=0){
                 return result;
             }

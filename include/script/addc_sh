@@ -2,10 +2,11 @@
 #define ADDC_SH
 
 #include<string>
+#include"project_info.h"
 
 namespace cyg{
     std::string addc_sh(const std::string& cname){
-        return "echo \"\" > ~/.judge/competition/"+cname;
+        return "echo \"\" > " USER"/.judge/competition/"+cname;
     }//solve addc_sh
 }
 

@@ -2,10 +2,11 @@
 #define ADDP_SH
 
 #include<string>
+#include"project_info.h"
 
 namespace cyg{
     std::string addp_sh(const std::string& pname){
-        return "unzip -o "+pname+" -d ~/.judge/problem/\n";
+        return "unzip -o "+pname+" -d " USER"/.judge/problem/\n";
     }
 }
 
