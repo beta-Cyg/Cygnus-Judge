@@ -1,5 +1,6 @@
 #include<cstdio>
 #include<cstring>
+#include<cstdlib>
 #include"project_info.h"
 using namespace std;
 
@@ -38,6 +39,13 @@ int main(int argc,char** args){
         int running_type;
         fscanf(type_output,"%d",&running_type);
         printf("%d\n",running_type);
+    }
+    else if(strcmp(args[argc-1],"kill")==0){
+        int failed_cnt=0;
+        while(system("pkill cjudge_server")){
+            failed_cnt++;
+            printf("%d try failed\n",failed_cnt);
+        }
     }
 
     return 0;

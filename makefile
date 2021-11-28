@@ -20,7 +20,7 @@ xmlpt: include/xmlp_test.cpp xmlp init
 unitt: include/unit.hpp include/unit_test.cpp init
 	$(CXX) include/unit_test.cpp -o bin/unitt $(debug)
 
-jsc: include/judge_server_control.cpp
+jsc: include/judge_server_control.cpp init
 	$(CXX) include/judge_server_control.cpp -o bin/jsc $(debug)
 
 init: clean
