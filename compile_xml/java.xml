@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="US-ASCII" ?>
+<run>
+    <type>interpreted</type>
+    <compiler>java</compiler>
+    <format>$file</format>
+</run>

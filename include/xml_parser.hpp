@@ -28,9 +28,9 @@ namespace cyg{
             std::list<int64_t>score;
             explicit subtask(size_t _point=0):point(_point),score(){}
         };
-        subtask* Subtask;
+        std::list<subtask>Subtask;
         size_t subtask_n;
-        problem():memory_limit(0),time_limit(0),Subtask(nullptr),subtask_n(0){
+        problem():memory_limit(0),time_limit(0),subtask_n(0){
         }
         
         explicit problem(const std::string& xml_file_name){
@@ -63,17 +63,15 @@ namespace cyg{
             else
                 throw problem_exception("undefined unit");
             subtask_n=xml_ptree.get<int32_t>("problem.subtask");
-            Subtask=new subtask[subtask_n];
-            for(size_t i=0;i<subtask_n;i++){
-                Subtask[i].point=xml_ptree.get<int32_t>("problem.subtask"+std::to_string(i+1)+".point");//problem.subtask$n.point
-                for(size_t j=0;j<Subtask[i].point;j++){
-                    Subtask[i].score.push_back(xml_ptree.get<int32_t>("problem.subtask"+std::to_string(i+1)+".point"+std::to_string(j+1)));
+            Subtask.resize(subtask_n);
+            int cnt=0;
+            for(auto i:Subtask){
+                i.point=xml_ptree.get<int32_t>("problem.subtask"+std::to_string(cnt+1)+".point");//problem.subtask$n.point
+                for(size_t j=0;j<i.point;j++){
+                    i.score.push_back(xml_ptree.get<int32_t>("problem.subtask"+std::to_string(cnt+1)+".point"+std::to_string(j+1)));
                 }
+                cnt++;
             }
-        }
-
-        ~problem(){
-            delete[] Subtask;
         }
 	};
 }
