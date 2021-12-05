@@ -133,12 +133,16 @@ int main(){
         cout<<max_thread<<' '<<judge_que.size()<<endl;
 #endif
         if(!get_running_type()){
+            while(thread_n!=0);
             break;
         }
         get_new_judge();
-        if(judge_que.empty())continue;
+        if(judge_que.empty()){
+            sleep(1);
+            continue;
+        }
         for(uint64_t i=0;i<max_thread-thread_n;i++){
-            thread_que.front().join();
+            thread_que.front().detach();
             thread_que.pop();
         }
         sleep(1);
