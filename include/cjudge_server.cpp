@@ -3,13 +3,14 @@
 #include<thread>
 #include<queue>
 #include<utility>
+#include<atomic>
 #include<iostream>
 #include<unistd.h>
 #include"xml_parser.hpp"
 #include"project_info.h"
 using namespace std;
 
-uint64_t max_thread,thread_n(0);
+atomic<uint64_t>max_thread,thread_n(0);
 
 class judge_unit{
 public:
