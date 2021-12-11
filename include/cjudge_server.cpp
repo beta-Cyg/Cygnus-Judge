@@ -157,7 +157,7 @@ int main(){
             continue;
         }
         while(thread_n<max_thread){
-            //thread_n++;
+            thread_n++;
             thread_que.front().detach();
             thread_que.pop();
             cout<<"pop a judge thread!"<<endl;
