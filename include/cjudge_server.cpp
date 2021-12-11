@@ -3,6 +3,7 @@
 #include<queue>
 #include<atomic>
 #include<utility>
+#include<atomic>
 #include<iostream>
 #include<unistd.h>
 #include<algorithm>
