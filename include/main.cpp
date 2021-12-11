@@ -41,6 +41,10 @@ int main(int argc,char** Args){
             if(result!=0){
                 return result;
             }
+            result=system("mkdir -p " USER"/.judge/program");
+            if(result!=0){
+                return result;
+            }
         }
         else{
             cout<<"undefined option/option's syntax error\n";
