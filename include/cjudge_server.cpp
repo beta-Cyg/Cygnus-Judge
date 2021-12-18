@@ -11,7 +11,7 @@
 #include"project_info.h"
 using namespace std;
 
-atomic<uint64_t>max_thread,thread_n(0);
+atomic<int64_t>max_thread,thread_n(0);
 
 class judge_unit{
 public:
@@ -74,21 +74,24 @@ inline int16_t compile_or_interpreted(const string& xml_file_name){
  * 5  --- Memory limit exceeded (MLE)
  * */
 
-int16_t judge(const judge_unit& judgeUnit){
+void judge(const judge_unit& judgeUnit){
+    thread_n++;
+#if CYG_DEBUG
+    cout<<"this a sub thread(judge) thread now is "<<thread_n<<endl;
+#endif
     if(compile_or_interpreted(judgeUnit.xml_file_name)){
-        thread_n-=1;
-        return 1;
+        thread_n--;
+        return;
     }
     FILE* judge_program_input=popen((USER"/.judge/program/"+no_suffix(judgeUnit.code_name)+" > /dev/null").c_str(),"w");
     //FILE* judge_program_output=popen("","r");
     if(judge_program_input==nullptr/* or judge_program_output==nullptr*/){
-        thread_n-=1;
-        return -1;
+        thread_n--;
+        return;
     }
     pclose(judge_program_input);
     //pclose(judge_program_output);
-    thread_n-=1;
-    return 0;
+    thread_n--;
 }
 
 bool get_running_type(){
@@ -138,17 +141,21 @@ void get_new_judge(){
 #if CYG_DEBUG
         cout<<"open judge_que_file failed(clear the file)"<<endl;
 #endif
+        return;
     }
     fprintf(judge_que_file,"%s","");
+#if CYG_DEBUG
+        cout<<"clear judge_que_file succeed"<<endl;
+#endif
 }
 
 int main(){
     max_thread=thread::hardware_concurrency()-1;
     while(true){
 #ifdef CYG_DEBUG
-        cout<<max_thread<<' '<<thread_n<<endl;
+        cout<<"max thread:"<<max_thread<<" now thread:"<<thread_n<<" thread queue's size:"<<thread_que.size()<<endl;
 #endif
-        if(!get_running_type()){
+        if(not get_running_type()){
             while(thread_n!=0);
             break;
         }
@@ -157,11 +164,11 @@ int main(){
             sleep(1);
             continue;
         }
-        while(thread_n<max_thread){
-            thread_n++;
-            thread_que.front().detach();
+        while(thread_n<max_thread and not thread_que.empty()){
+            cerr<<"detach a judge thread!"<<endl;
+            thread& temp=thread_que.front();
+            temp.detach();
             thread_que.pop();
-            cout<<"pop a judge thread!"<<endl;
         }
         sleep(1);
     }

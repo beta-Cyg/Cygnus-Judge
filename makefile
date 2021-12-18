@@ -4,7 +4,7 @@ debug=-Wall
 optimize=-O2
 add_include_path=-Iinclude
 
-all: clean init main jsc judge_server
+all: clean init main jsc judge_server thread_quet
 
 main: include/main.cpp judge_server init
 	$(CXX) include/main.cpp -o bin/judge $(debug) $(add_include_path)
@@ -19,6 +19,9 @@ xmlpt: include/xmlp_test.cpp xmlp init
 
 unitt: include/unit.hpp include/unit_test.cpp init
 	$(CXX) include/unit_test.cpp -o bin/unitt $(debug)
+
+thread_quet: include/thread_que_test.cpp
+	$(CXX) include/thread_que_test.cpp -o bin/thread_quet $(debug) -lpthread
 
 jsc: include/judge_server_control.cpp init
 	$(CXX) include/judge_server_control.cpp -o bin/jsc $(debug)
