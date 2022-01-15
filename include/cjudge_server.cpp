@@ -7,6 +7,7 @@
 #include<iostream>
 #include<unistd.h>
 #include<algorithm>
+#include"format.hpp"
 #include"xml_parser.hpp"
 #include"project_info.h"
 using namespace std;
