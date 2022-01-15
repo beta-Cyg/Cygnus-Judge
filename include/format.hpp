@@ -21,11 +21,11 @@ namespace cyg{
 
     template<typename T>
     requires is_number<T>
-    std::string to_str(T value){
+    std::string to_str(const T& value){
         return no_suffix_0(std::to_string(value));
     }
 
-    std::string to_str(std::string value){
+    const std::string& to_str(const std::string& value){
         return value;
     }
 
@@ -34,7 +34,7 @@ namespace cyg{
     }
 
     template<typename hT,typename...argsT>
-    std::string format(std::string fmt,hT hArg,argsT...Args){
+    std::string format(std::string fmt,const hT& hArg,const argsT&...Args){
         if(fmt.find("{}")<fmt.size()){
             fmt.replace(fmt.find("{}"),std::string("{}").size(),to_str(hArg));
             return format(fmt,Args...);
