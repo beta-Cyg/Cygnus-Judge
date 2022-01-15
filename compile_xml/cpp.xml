@@ -2,5 +2,5 @@
 <run>
     <type>compiled</type>
     <compiler>g++</compiler>
-    <format>$file -o $output</format>
+    <format>{} -o {} -DONLINE_JUDGE</format>
 </run>

@@ -2,5 +2,5 @@
 <run>
     <type>interpreted</type>
     <compiler>java</compiler>
-    <format>$file</format>
+    <format>{}</format>
 </run>

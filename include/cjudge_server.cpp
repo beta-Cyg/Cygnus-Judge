@@ -40,8 +40,6 @@ string no_suffix(string file_name){
     reverse(file_name.begin(),file_name.end());
     while(file_name.find("/")<file_name.size())file_name.erase(0,file_name.find("/")+1);
     return file_name;
-    //
-    //testasdf/test.cpp
 }
 
 inline int16_t compile_or_interpreted(const string& xml_file_name){
@@ -50,7 +48,7 @@ inline int16_t compile_or_interpreted(const string& xml_file_name){
         boost::property_tree::xml_parser::read_xml(xml_file_name,information_of_c_or_i);
     }
     catch(...){
-        cout<<"language xml file syntax error!"<<endl;
+        cerr<<"language xml file syntax error!"<<endl;
         return -1;
     }
     bool flag=information_of_c_or_i.get<string>("run.type")=="compiled";
@@ -76,7 +74,7 @@ inline int16_t compile_or_interpreted(const string& xml_file_name){
 
 void judge(const judge_unit& judgeUnit){
     thread_n++;
-#if CYG_DEBUG
+#ifdef CYG_DEBUG
     cout<<"this a sub thread(judge) thread now is "<<thread_n<<endl;
 #endif
     if(compile_or_interpreted(judgeUnit.xml_file_name)){
@@ -97,7 +95,7 @@ void judge(const judge_unit& judgeUnit){
 bool get_running_type(){
     FILE* running_type_file=fopen(USER"/.judge/running_type","r");
     if(running_type_file==nullptr){
-#if CYG_DEBUG
+#ifdef CYG_DEBUG
         cout<<"can't open running type file(read)"<<endl;
 #endif
         return false;
@@ -108,7 +106,7 @@ bool get_running_type(){
     cout<<"running type:"<<flag<<endl;
     running_type_file=fopen(USER"/.judge/running_type","w");
     if(running_type_file==nullptr){
-#if CYG_DEBUG
+#ifdef CYG_DEBUG
         cout<<"can't open running type file(write)"<<endl;
 #endif
         return false;
@@ -138,13 +136,13 @@ void get_new_judge(){
     fclose(judge_que_file);
     judge_que_file=fopen(USER"/.judge/judge_que_file","w");
     if(judge_que_file==nullptr){
-#if CYG_DEBUG
+#ifdef CYG_DEBUG
         cout<<"open judge_que_file failed(clear the file)"<<endl;
 #endif
         return;
     }
     fprintf(judge_que_file,"%s","");
-#if CYG_DEBUG
+#ifdef CYG_DEBUG
         cout<<"clear judge_que_file succeed"<<endl;
 #endif
 }

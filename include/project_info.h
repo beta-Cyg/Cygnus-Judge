@@ -2,7 +2,7 @@
 #define PROJECT_INFO_H
 
 #ifndef CYG_DEBUG
-#define CYG_DEBUG true
+#define CYG_DEBUG
 #endif
 
 #ifndef USER
