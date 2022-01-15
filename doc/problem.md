@@ -16,7 +16,7 @@ $problem.zip
 
 |--n.out
 
-syntax example of problem.ini
+syntax example of problem.xml
 ```xml
 <?xml version="1.0" encoding="US-ASCII"?>
 <problem>
