@@ -1,4 +1,3 @@
-#include<fstream>
 #include<iostream>
 #include"format.hpp"
 #include"xml_parser.hpp"
@@ -41,11 +40,33 @@ int compile(const string& xml_file_name,const string& src){
     return 0;
 }
 
+int run(const judge_task& judgeTask){
+    return 0;//solve this function
+}
+
+/*
+ * running result code:
+ * 0: AC
+ * 1: PAC
+ * 2: WA
+ * 3: TLE
+ * 4: MLE
+ * 5: RE
+ * */
+
+string result_code[]{"AC","PAC","WA","TLE","MLE","RE"};
+
 int main(int argc,char **args){
     if(argc!=4)return 1;
     string problem_name=args[1],code_name=args[2],xml_file_name=args[3];
     task=judge_task(cyg::problem(USER"/.judge/problem/"+string(problem_name)+"/problem.xml"),code_name,xml_file_name);
-    compile(task.xml_file_name,task.src);
+    int compile_result=compile(task.xml_file_name,task.src);
+    if(compile_result!=0){
+        cout<<"judge result: CE"<<endl;
+        return 0;
+    }
+    int running_result=run(task);
+    cout<<"judge result: "+result_code[running_result]<<endl;//add more output info
 
     return 0;
 }
