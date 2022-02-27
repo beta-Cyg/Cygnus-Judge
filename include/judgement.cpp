@@ -40,7 +40,7 @@ int compile(const string& xml_file_name,const string& src){
     return 0;
 }
 
-int run(const judge_task& judgeTask){
+int run(const judge_task& judgeTask){//use time to get info
     return 0;//solve this function
 }
 
