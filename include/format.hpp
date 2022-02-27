@@ -3,40 +3,18 @@
 
 #include<string>
 #include<typeinfo>
-#include<concepts>
+#include<algorithm>
 
 namespace cyg{
-    template<typename T>
-    concept is_number=std::integral<T> or std::floating_point<T>;
-
-    //only for float number
-    std::string no_suffix_0(std::string value){
-        if(value.find('.')<value.size()){
-            while(value.back()=='0')
-                value.pop_back();
-            if(value.back()=='.')value.pop_back();
-        }
-        return value;
-    }
-
-    template<typename T>
-    requires is_number<T>
-    std::string to_str(const T& value){
-        return no_suffix_0(std::to_string(value));
-    }
-
-    const std::string& to_str(const std::string& value){
-        return value;
-    }
 
     std::string format(std::string fmt){
         return fmt;
     }
 
     template<typename hT,typename...argsT>
-    std::string format(std::string fmt,const hT& hArg,const argsT&...Args){
-        if(fmt.find("{}")<fmt.size()){
-            fmt.replace(fmt.find("{}"),std::string("{}").size(),to_str(hArg));
+    std::string format(std::string fmt,const std::pair<std::string,hT>& hArg,const std::pair<std::string,argsT>&...Args){
+        if(fmt.find("{"+hArg.first+"}")<fmt.size()){
+            fmt.replace(fmt.find("{"+hArg.first+"}"),("{"+hArg.first+"}").size(),hArg.second);
             return format(fmt,Args...);
         }
         else

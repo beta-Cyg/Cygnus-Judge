@@ -3,7 +3,6 @@
 #include<queue>
 #include<atomic>
 #include<utility>
-#include<atomic>
 #include<iostream>
 #include<unistd.h>
 #include<algorithm>
@@ -12,7 +11,7 @@
 #include"project_info.h"
 using namespace std;
 
-atomic<int64_t>max_thread,thread_n(0);
+atomic<int64_t>max_thread,thread_n;
 
 class judge_unit{
 public:
@@ -121,7 +120,17 @@ bool get_running_type(){
 //$problem_name $code_name
 
 void get_new_judge(){
-    FILE* judge_que_file=fopen(USER"/.judge/judge_que_file","r");
+    FILE* judge_que_file=nullptr;
+    /*
+     * the judge messages are in USER"/.judge/message/"
+     * the suffix of judge message file is .jm (judge message)
+     * use <filesystem> to solve this part
+     * the format of judge message file (*.jm):
+     *     {problem_name} {src} {run_info}
+     * example:
+     *     test /home/beta-cyg/test.cpp /home/beta-cyg/Cygnus-Judge/compile_xml/cpp.xml
+     * */
+    judge_que_file=fopen(USER"/.judge/message/","r");
     if(judge_que_file==nullptr){
 #ifdef CYG_DEBUG
         cout<<"open judge_que_file failed"<<endl;
@@ -164,7 +173,7 @@ int main(){
             continue;
         }
         while(thread_n<max_thread and not thread_que.empty()){
-            cerr<<"detach a judge thread!"<<endl;
+            //cerr<<"detach a judge thread!"<<endl;
             thread& temp=thread_que.front();
             temp.detach();
             thread_que.pop();

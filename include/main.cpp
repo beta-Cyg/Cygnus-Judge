@@ -37,6 +37,10 @@ int main(int argc,char** Args){
             if(result!=0){
                 return result;
             }
+            result=system("mkdir -p " USER"/.judge/message");
+            if(result!=0){
+                return result;
+            }
             result=system("mkdir -p " USER"/.judge/competition");
             if(result!=0){
                 return result;

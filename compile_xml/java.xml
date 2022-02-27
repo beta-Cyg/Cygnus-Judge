@@ -2,5 +2,5 @@
 <run>
     <type>interpreted</type>
     <compiler>java</compiler>
-    <format>{}</format>
+    <format>{src}</format>
 </run>
