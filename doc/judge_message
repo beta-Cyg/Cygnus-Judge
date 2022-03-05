@@ -1,1 +1,1 @@
-test /home/beta-cyg/test.cpp /home/beta-cyg/Cygnus-Judge/compile_xml/cpp.xml
+test /home/beta-cyg/judge_test/test.cpp /home/beta-cyg/Cygnus-Judge/compile_xml/cpp.xml

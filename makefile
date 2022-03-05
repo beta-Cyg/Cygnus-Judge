@@ -6,7 +6,7 @@ add_include_path=-Iinclude
 
 all: main judgement
 
-main: include/main.cpp judge_server
+main: include/main.cpp
 	$(CXX) include/main.cpp -o bin/judge $(debug) $(add_include_path) $(optimize)
 
 judgement: include/judgement.cpp xmlp

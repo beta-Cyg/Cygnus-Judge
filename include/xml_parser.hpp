@@ -19,6 +19,7 @@ namespace cyg{
             return reason.c_str();
         }
     };
+
 	class problem{
     public:
 	    std::string pname;
@@ -49,7 +50,7 @@ namespace cyg{
                 int32_t mlt=atoi(ml.c_str());
                 int32_t tlt=atoi(tl.c_str());
                 if(ml_unit=='K')
-                    memory_limit=convert<KB,MB>(mlt);
+                    memory_limit=static_cast<int32_t>(convert<KB,MB>(mlt));
                 else if(ml_unit=='M')
                     memory_limit=mlt;
                 else
@@ -57,7 +58,7 @@ namespace cyg{
                 if(tl_unit=='s')
                     time_limit=tlt;
                 else if(tl_unit=='m')
-                    time_limit=convert<min,sec>(tlt);
+                    time_limit=static_cast<int32_t>(convert<min,sec>(tlt));
                 else
                     throw xml_parse_exception("undefined unit");
                 subtask_n=xml_ptree.get<int32_t>("problem.subtask");
@@ -80,18 +81,20 @@ namespace cyg{
     class compile_information{
     public:
         std::string type,
-                    runner,
+                    compiler,
                     fmt;
 
-        compile_information(const std::string& xml_file_name){
+        compile_information():type(""),compiler(""),fmt(""){}
+
+        explicit compile_information(const std::string& xml_file_name){
             boost::property_tree::ptree xml_ptree;
             try{
                 boost::property_tree::read_xml(xml_file_name,xml_ptree);
                 type=xml_ptree.get<std::string>("run.type");
                 if(type=="compiled")
-                    runner=xml_ptree.get<std::string>("run.compiler");
+                    compiler=xml_ptree.get<std::string>("run.compiler");
                 else if(type=="interpreted")
-                    runner=xml_ptree.get<std::string>("run.interpreter");
+                    compiler=xml_ptree.get<std::string>("run.interpreter");
                 fmt=xml_ptree.get<std::string>("run.format");
             }
             catch(boost::property_tree::ptree_error& ptree_error){
