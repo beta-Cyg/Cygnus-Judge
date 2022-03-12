@@ -78,6 +78,7 @@ judge_result run(const judge_task& judgeTask){//use time to get info
 #ifdef CYG_DEBUG
     cout<<"the judgement has been to run."<<endl;
 #endif
+	//todo subtype inter and compile
     /*for(auto& i:result.Subtask)
         for(auto& j:i.score){
             j.pts=0;*/
